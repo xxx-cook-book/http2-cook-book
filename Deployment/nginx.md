@@ -12,8 +12,12 @@
   sudo apt-get remove '^nginx.*$'
   ```
 
+* Upgrade OpenSSL
+
+  * See below
 
 * Source Code
+
   * Wget
 
     ```shell
@@ -26,11 +30,17 @@
     tar -zxvf nginx-1.10.2.tar.gz
     ```
 
+  * PCRE Lib
+
+    ```shell
+    apt-get install libpcre3 libpcre3-dev
+    ```
+
   * Install
 
     ```shell
     cd nginx-1.10.2
-    ./configure --with-http_v2_module --with-http_ssl_module
+    ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-ipv6 --with-openssl=/xxx/openssl-1.0.2j --with-http_stub_status_module
     make && make install
     ```
 
@@ -99,3 +109,39 @@
       ...
   }
   ```
+
+## Why HTTP/2 May not Work in Chrome
+
+* Reason
+  * [Transitioning from SPDY to HTTP/2](https://blog.chromium.org/2016/02/transitioning-from-spdy-to-http2.html)
+
+* Solution
+  * Nginx with OpenSSL 1.0.2 (ALPN)
+
+* Upgrade OpenSSL
+
+  * [Upgrade OpenSSL on Ubuntu 12.04](http://askubuntu.com/questions/429385/upgrade-openssl-on-ubuntu-12-04)
+
+  * [Updating To OpenSSL 1.0.2g On Ubuntu Server 12.04 & 14.04 LTS To Stop CVE-2016-0800 (DROWN attack)](http://www.miguelvallejo.com/updating-to-openssl-1-0-2g-on-ubuntu-server-12-04-14-04-lts-to-stop-cve-2016-0800-drown-attack/)
+
+    ```shell
+    $ curl https://www.openssl.org/source/openssl-1.0.2j.tar.gz | tar xz && cd openssl-1.0.2j && sudo ./config && sudo make && sudo make install
+    $ which openssl
+    /usr/bin/openssl
+    $ sudo ln -sf /usr/local/ssl/bin/openssl /usr/bin/openssl
+    $ openssl version
+    OpenSSL 1.0.2j  26 Sep 2016
+    ```
+
+  * ALPN Support Or Not
+
+    ```shell
+    $ openssl s_client -alpn h2 -servername lzw.me -connect lzw.me:443 < /dev/null | grep 'ALPN'
+    ALPN protocol: h2
+    ```
+
+## References
+
+[1] victor@4devs, [Nginx's HTTP/2 Does Not Work](https://victor.4devs.io/en/architecture/nginx-http2-does-not-work.html)
+
+[2] Sherin Abdulkhareem@syslint, [How to enable ALPN with http2 for nginx on Centos 7 cPnginx Server](https://syslint.com/blog/tutorial/how-to-enable-alpn-with-http2-for-nginx-on-centos-7-cpnginx-server/)
