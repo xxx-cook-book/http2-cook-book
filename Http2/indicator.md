@@ -8,6 +8,8 @@
   Pay attention to the ALPN section. It must be enabled or HTTP/2 won't work in Chrome.
   ```
 
+* [SPDYCheck: Testing Websites for SPDY Support](https://spdycheck.org/)
+
 ## Chrome
 
 * Chrome Extension

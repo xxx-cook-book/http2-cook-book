@@ -6,7 +6,7 @@
 
 ## Installtion(Ubuntu)
 
-* Remove Old
+* Remove Old Nginx
 
   ```shell
   sudo apt-get remove '^nginx.*$'
@@ -16,74 +16,80 @@
 
   * See below
 
-* Source Code
+* Install Latest Nginx
 
-  * Wget
+  * Source Code
 
-    ```shell
-    wget http://nginx.org/download/nginx-1.10.2.tar.gz
-    ```
-
-  * Tar
-
-    ```shell
-    tar -zxvf nginx-1.10.2.tar.gz
-    ```
-
-  * PCRE Lib
-
-    ```shell
-    apt-get install libpcre3 libpcre3-dev
-    ```
-
-  * Install
-
-    ```shell
-    cd nginx-1.10.2
-    ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-ipv6 --with-openssl=/xxx/openssl-1.0.2j --with-http_stub_status_module
-    make && make install
-    ```
-
-* Pre-Built Packages
-
-  * [nginx: Linux packages](http://nginx.org/en/linux_packages.html)
-
-  * Add key
-
-    ```shell
-    wget http://nginx.org/keys/nginx_signing.key
-    sudo apt-key add nginx_signing.key
-    ```
-
-  * Sources.list
-
-    * append the following to the end of the `/etc/apt/sources.list`
+    * Wget
 
       ```shell
-      deb http://nginx.org/packages/ubuntu/ codename nginx
-      deb-src http://nginx.org/packages/ubuntu/ codename nginx
+      wget http://nginx.org/download/nginx-1.10.2.tar.gz
       ```
 
-    * Codename
-
-      | Version | Codename | Supported Platforms         |
-      | ------- | -------- | --------------------------- |
-      | 12.04   | precise  | x86_64, i386                |
-      | 14.04   | trusty   | x86_64, i386, aarch64/arm64 |
-      | 16.04   | xenial   | x86_64, i386, ppc64el       |
-
-    * Version
+    * Tar
 
       ```shell
-      cat /etc/issue
+      tar -zxvf nginx-1.10.2.tar.gz
       ```
 
-  * Update sources
+    * PCRE Lib
 
-    ```shell
-    sudo apt-get update
-    sudo apt-get install nginx
-    ```
+      ```shell
+      apt-get install libpcre3 libpcre3-dev
+      ```
+
+    * Install
+
+      ```shell
+      cd nginx-1.10.2
+      ./configure --with-http_ssl_module --with-http_v2_module --with-http_realip_module --with-http_flv_module --with-http_mp4_module --with-ipv6 --with-openssl=/xxx/openssl-1.0.2j --with-http_stub_status_module
+      make && make install
+      ```
+
+  * Pre-Built Packages
+
+    * [nginx: Linux packages](http://nginx.org/en/linux_packages.html)
+
+    * Add key
+
+      ```shell
+      wget http://nginx.org/keys/nginx_signing.key
+      sudo apt-key add nginx_signing.key
+      ```
+
+    * Sources.list
+
+      * append the following to the end of the `/etc/apt/sources.list`
+
+        ```shell
+        deb http://nginx.org/packages/ubuntu/ codename nginx
+        deb-src http://nginx.org/packages/ubuntu/ codename nginx
+        ```
+
+      * Codename
+
+        | Version | Codename | Supported Platforms         |
+        | ------- | -------- | --------------------------- |
+        | 12.04   | precise  | x86_64, i386                |
+        | 14.04   | trusty   | x86_64, i386, aarch64/arm64 |
+        | 16.04   | xenial   | x86_64, i386, ppc64el       |
+
+      * Version
+
+        ```shell
+        cat /etc/issue
+        ```
+
+    * Update sources
+
+      ```shell
+      sudo apt-get update
+      sudo apt-get install nginx
+      ```
+
+  * Ubuntu PPA
+
+    * [3rd Party Repository: Nginx](http://www.ubuntuupdates.org/ppa/nginx)
 
 ## Configuration
 
